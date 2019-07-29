@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Author;
+use App\Book;
 
-class AuthorController extends Controller
+class BookController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,9 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        $authors = Author::all()->toArray();
+        $books = Book::all()->toArray();
 
-        return response()->json(['success'=>true,'authors',$authors],200);
+        return response()->json(['success'=>true,'books',$books],200);
     }
 
     /**
@@ -37,35 +37,15 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        $author = new Author();
+        $book = new Book();
 
+        $book->title     = $request->get('title');
+        $book->price 	 = $request->get('price');
+        $book->author_id = $request->get('author_id');
 
-        if($request->get('name') == ''){
+        $book->save();
 
-        	return response()->json(['success'=>false,'field'=>'name','erroMsg'=>'campo de nome é obrigatório','authors',$this->index()],400);
-        }
-
-
-        if($request->get('email') == ''){
-
-        	return response()->json(['success'=>false,'field'=>'email','erroMsg'=>'campo de email é obrigatório','authors',$this->index()],400);
-        }
-
-
-        if($request->get('password') == ''){
-
-        	return response()->json(['success'=>false,'field'=>'password','erroMsg'=>'campo de senha é obrigatório','authors',$this->index()],400);
-        }
-
-        $author->name     = $request->get('name');
-        $author->email    = $request->get('email');
-        $author->password = $request->get('password');
-
-        $author->save();
-
-        return response()->json(['success'=>true,'authors',$this->index()],200);
-        // return response()->json(['success'=>true,'message','cadastrado com successo'],200);
-
+        return response()->json(['success'=>true,'books',$this->index()],200);
     }
 
     /**

@@ -22,3 +22,7 @@ Route::get('author/{id}', 'AuthorController@show');
 Route::post('author/store', 'AuthorController@store');
 Route::post('author/update/{id}', 'AuthorController@update');
 
+Route::get('books', 'BookController@index');
+Route::get('book/{id}', 'BookController@show');
+Route::get('book/store', 'BookController@store');
+Route::get('book/update/{id}','BookController@update');
